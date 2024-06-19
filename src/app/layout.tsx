@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import LayoutComponent from "./_components/LayoutComponent";
 
-const inter = Inter({ subsets: ["latin"] });
+import '@radix-ui/themes/styles.css';
+import { Theme } from "@radix-ui/themes";
+import { ConfigProvider } from "antd";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,9 +16,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const optionsConfigs =
+  {
+    components:{
+      Input:{
+        hoverBorderColor:"#4361EE",
+        activeBorderColor:"#4361EE"
+      },
+      DatePicker:{
+        hoverBorderColor:"#4361EE",
+        activeBorderColor:"#4361EE"
+      }
+    }
+  }
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <Theme>
+          <ConfigProvider theme={optionsConfigs}>
+            <LayoutComponent >
+              {children}
+            </LayoutComponent>
+          </ConfigProvider>
+        </Theme>
+      </body>
     </html>
   );
 }
